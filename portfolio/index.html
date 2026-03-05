@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alex Carter | Portfolio</title>
+  <meta name="description" content="Portfolio of Alex Carter, a frontend-focused web developer." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="grain"></div>
+  <div class="bg-orb orb-one"></div>
+  <div class="bg-orb orb-two"></div>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#home">Alex<span>.</span></a>
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="siteNav">Menu</button>
+      <nav id="siteNav">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero container reveal">
+      <div class="hero-left">
+        <p class="kicker">Frontend Developer</p>
+        <h1>
+          I design sharp interfaces that are
+          <span>fast, useful, and memorable.</span>
+        </h1>
+        <p class="hero-copy">
+          I build modern web apps with clean architecture and clear UX. Based in India, open to remote opportunities.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#projects">See Projects</a>
+          <a class="btn btn-ghost" href="#contact">Hire Me</a>
+        </div>
+        <ul class="stats">
+          <li><strong>25+</strong><span>Projects</span></li>
+          <li><strong>3</strong><span>Years Building</span></li>
+          <li><strong>100%</strong><span>Client Focus</span></li>
+        </ul>
+      </div>
+      <aside class="hero-panel">
+        <p class="panel-title">Current Focus</p>
+        <h3>Building conversion-first product interfaces for SaaS and ecommerce teams.</h3>
+        <ul>
+          <li>Reusable component systems</li>
+          <li>Performance and Lighthouse tuning</li>
+          <li>Accessible UX with clean visual hierarchy</li>
+        </ul>
+        <div class="panel-metric">
+          <span>Latest Stack</span>
+          <strong>React + TypeScript + Tailwind</strong>
+        </div>
+      </aside>
+    </section>
+
+    <section class="marquee" aria-label="Highlights">
+      <div class="marquee-track">
+        <p>Available for freelance</p>
+        <p>Product UI Engineering</p>
+        <p>Design Systems</p>
+        <p>Performance Optimization</p>
+        <p>Available for freelance</p>
+        <p>Product UI Engineering</p>
+        <p>Design Systems</p>
+        <p>Performance Optimization</p>
+      </div>
+    </section>
+
+    <section id="about" class="section container reveal">
+      <div class="section-head">
+        <p>About</p>
+        <h2>Engineer mindset, product taste.</h2>
+      </div>
+      <div class="about-grid">
+        <article class="card">
+          <h3>Who I Am</h3>
+          <p>I am a developer who turns ideas into polished digital products. I care about speed, accessibility, and long-term maintainability.</p>
+        </article>
+        <article class="card">
+          <h3>What I Do</h3>
+          <p>Frontend engineering with HTML, CSS, JavaScript, React, and API integration. I also enjoy performance tuning and UI architecture.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills" class="section container reveal">
+      <div class="section-head">
+        <p>Skills</p>
+        <h2>Tools I use to ship products.</h2>
+      </div>
+      <div class="skills-grid">
+        <article class="chip-card">
+          <h3>Frontend</h3>
+          <div class="chips">
+            <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>React</span><span>Next.js</span>
+          </div>
+        </article>
+        <article class="chip-card">
+          <h3>Backend</h3>
+          <div class="chips">
+            <span>Node.js</span><span>Express</span><span>MongoDB</span><span>PostgreSQL</span>
+          </div>
+        </article>
+        <article class="chip-card">
+          <h3>Workflow</h3>
+          <div class="chips">
+            <span>Git</span><span>Figma</span><span>Vercel</span><span>CI/CD</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects" class="section container reveal">
+      <div class="section-head">
+        <p>Projects</p>
+        <h2>Selected work.</h2>
+      </div>
+      <div class="project-grid">
+        <article class="project-card">
+          <p class="project-type">Ecommerce</p>
+          <h3>Storefront UI</h3>
+          <p>Responsive ecommerce frontend with filtering, cart interactions, and API-backed product data.</p>
+          <a href="#" aria-label="Open Storefront UI">View Case</a>
+        </article>
+        <article class="project-card">
+          <p class="project-type">Analytics</p>
+          <h3>TaskFlow Dashboard</h3>
+          <p>Data dashboard with chart widgets, auth flow, and modular component system for scale.</p>
+          <a href="#" aria-label="Open TaskFlow Dashboard">View Case</a>
+        </article>
+        <article class="project-card">
+          <p class="project-type">Content Platform</p>
+          <h3>Portfolio CMS</h3>
+          <p>Headless CMS integration for editable content blocks and SEO-ready static generation.</p>
+          <a href="#" aria-label="Open Portfolio CMS">View Case</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="section container reveal">
+      <div class="section-head">
+        <p>Contact</p>
+        <h2>Let’s build something useful.</h2>
+      </div>
+      <form class="contact-form" id="contactForm">
+        <label>
+          Name
+          <input type="text" name="name" placeholder="Your name" required />
+        </label>
+        <label>
+          Email
+          <input type="email" name="email" placeholder="you@example.com" required />
+        </label>
+        <label>
+          Message
+          <textarea name="message" rows="5" placeholder="Tell me about your project" required></textarea>
+        </label>
+        <button class="btn btn-primary" type="submit">Send Message</button>
+        <p class="form-note" id="formNote" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year"></span> Alex Carter. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
