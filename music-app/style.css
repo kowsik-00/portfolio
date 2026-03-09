@@ -1,0 +1,376 @@
+:root {
+    --primary-color: #1DB954;
+    --bg-color: #121212;
+    --surface-color: #181818;
+    --surface-hover: #282828;
+    --text-main: #FFFFFF;
+    --text-sub: #B3B3B3;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+}
+
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+h1 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    font-weight: 800;
+}
+
+.search-container {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    max-width: 600px;
+}
+
+input {
+    flex: 1;
+    padding: 15px 25px;
+    border-radius: 30px;
+    border: none;
+    background-color: var(--surface-hover);
+    color: var(--text-main);
+    font-size: 16px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+input:focus {
+    outline: 2px solid var(--text-main);
+}
+
+button {
+    padding: 15px 30px;
+    border-radius: 30px;
+    border: none;
+    background-color: var(--primary-color);
+    color: #000;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 16px;
+    transition: transform 0.2s, background-color 0.2s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+button:hover {
+    transform: scale(1.05);
+    background-color: #1ed760;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+.placeholder-text {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--text-sub);
+    font-size: 18px;
+    margin-top: 50px;
+}
+
+.track-card {
+    background-color: var(--surface-color);
+    padding: 20px;
+    border-radius: 12px;
+    transition: background-color 0.3s, transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.track-card:hover {
+    background-color: var(--surface-hover);
+    transform: translateY(-5px);
+}
+
+.track-image-container {
+    width: 100%;
+    aspect-ratio: 1;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #333;
+}
+
+.track-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.track-title {
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.track-artist {
+    color: var(--text-sub);
+    font-size: 14px;
+    margin: 0 0 15px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Track Card Actions */
+.track-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 10px;
+}
+
+.play-on-card-btn {
+    background-color: var(--primary-color);
+    color: black;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.track-card:hover .play-on-card-btn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.play-on-card-btn:hover {
+    background-color: #1ed760;
+    transform: scale(1.1);
+}
+
+.no-preview {
+    font-size: 12px;
+    color: var(--text-sub);
+    text-align: center;
+    width: 100%;
+}
+
+/* Spotify-style Bottom Player Styles */
+body {
+    padding-bottom: 90px; /* Make room for bottom player */
+}
+
+.bottom-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 90px;
+    background-color: #181818;
+    border-top: 1px solid #282828;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    z-index: 1000;
+}
+
+/* 1. Now Playing Section (Left) */
+.now-playing {
+    display: flex;
+    align-items: center;
+    width: 30%;
+    min-width: 180px;
+}
+
+.player-image {
+    width: 56px;
+    height: 56px;
+    border-radius: 4px;
+    object-fit: cover;
+    margin-right: 14px;
+}
+
+.track-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.player-title {
+    color: var(--text-main);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.player-artist {
+    color: var(--text-sub);
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 2. Player Controls (Center) */
+.player-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+    max-width: 722px;
+}
+
+.control-buttons {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 8px;
+}
+
+.control-btn {
+    background: none;
+    border: none;
+    color: var(--text-sub);
+    font-size: 16px;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: none; /* Override default button shadow */
+}
+
+.control-btn:hover {
+    color: var(--text-main);
+    transform: scale(1.1); /* Slightly smaller hover scale */
+    background: none;
+}
+
+.play-btn {
+    background-color: var(--text-main);
+    color: #000;
+    border-radius: 50%;
+    font-size: 14px;
+    padding-left: 3px; /* visual center adjustment */
+    transition: transform 0.1s;
+}
+
+.play-btn:hover {
+    background-color: #fff;
+    transform: scale(1.05); /* Override default hover */
+}
+
+.progress-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 8px;
+}
+
+.time {
+    color: var(--text-sub);
+    font-size: 11px;
+    min-width: 40px;
+    text-align: center;
+}
+
+.progress-bar-bg {
+    flex-grow: 1;
+    height: 4px;
+    background-color: #4d4d4d;
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.progress-bar-bg:hover .progress-bar-fill {
+    background-color: var(--primary-color);
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: #fff;
+    border-radius: 2px;
+    width: 0%; /* Dynamic width */
+}
+
+/* 3. Volume Controls (Right) */
+.volume-controls {
+    display: flex;
+    align-items: center;
+    width: 30%;
+    min-width: 180px;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.volume-icon {
+    color: var(--text-sub);
+    font-size: 16px;
+}
+
+.volume-slider {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100px;
+    height: 4px;
+    background: #4d4d4d;
+    border-radius: 2px;
+    outline: none;
+    padding: 0;
+    box-shadow: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.volume-slider:hover::-webkit-slider-thumb {
+    opacity: 1;
+}
+
+.volume-slider:hover {
+    background: var(--primary-color);
+}
