@@ -1,47 +1,40 @@
-const clientId = 'f340e07b624c40c8a92d44e642cfce50';
-const clientSecret = '9de1e99f134b4af6b7c3179fde4a8ce3';
-let accessToken = '';
+```javascript
+// Removed Spotify API credentials and token logic
+// const clientId = 'f340e07b624c40c8a92d44e642cfce50';
+// const clientSecret = '9de1e99f134b4af6b7c3179fde4a8ce3';
+// let accessToken = '';
 
-// Get token using Client Credentials Flow
-async function getToken() {
-    try {
-        const response = await fetch('https://accounts.spotify.com/api/token', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': 'Basic ' + btoa(clientId + ':' + clientSecret)
-            },
-            body: 'grant_type=client_credentials'
-        });
+// // Get token using Client Credentials Flow
+// async function getToken() {
+//     try {
+//         const response = await fetch('https://accounts.spotify.com/api/token', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/x-www-form-urlencoded',
+//                 'Authorization': 'Basic ' + btoa(clientId + ':' + clientSecret)
+//             },
+//             body: 'grant_type=client_credentials'
+//         });
 
-        const data = await response.json();
+//         const data = await response.json();
         
-        if (data.access_token) {
-            accessToken = data.access_token;
-            console.log("Successfully authenticated with Spotify.");
-        } else {
-            console.error("Failed to get Spotify access token:", data);
-        }
-    } catch (error) {
-        console.error("Error fetching token:", error);
-    }
-}
+//         if (data.access_token) {
+//             accessToken = data.access_token;
+//             console.log("Successfully authenticated with Spotify.");
+//         } else {
+//             console.error("Failed to get Spotify access token:", data);
+//         }
+//     } catch (error) {
+//         console.error("Error fetching token:", error);
+//     }
+// }
 
 // Search tracks
 async function searchTracks(query) {
-    if (!accessToken) {
-        await getToken();
-    }
-
-    const response = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=24`, {
-        method: 'GET',
-        headers: { 
-            'Authorization': 'Bearer ' + accessToken 
-        }
-    });
-
+    const response = await fetch(`http://localhost:3000/api/search?q=${encodeURIComponent(query)}`);
     const data = await response.json();
-    return data.tracks.items;
+    if (data.error) throw new Error(data.error);
+    return data;
 }
 
 // UI Elements
@@ -170,18 +163,6 @@ progressBarBg.addEventListener('click', (e) => {
     }
 });
 
-async function getYouTubeVideoId(trackName, artistName) {
-    try {
-        const query = encodeURIComponent(`${trackName} ${artistName} audio`);
-        const response = await fetch(`http://localhost:3000/api/search-youtube?q=${query}`);
-        const data = await response.json();
-        return data.videoId;
-    } catch (e) {
-        console.error("YouTube search error:", e);
-    }
-    return null;
-}
-
 async function playTrack(index) {
     if (index < 0 || index >= currentTracks.length) return;
     if (!ytPlayer) {
@@ -193,26 +174,15 @@ async function playTrack(index) {
     currentTrackIndex = index;
     
     // Update player UI
-    const images = track.album.images;
-    playerImage.src = images.length > 0 ? images[0].url : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
-    playerTitle.textContent = track.name + " (Loading...)";
-    playerArtist.textContent = track.artists.map(a => a.name).join(', ');
+    playerImage.src = track.image;
+    playerTitle.textContent = track.name;
+    playerArtist.textContent = track.artist;
     
     // Update document title
-    document.title = `${track.name} - ${track.artists[0].name}`;
+    document.title = `${track.name} - ${track.artist}`;
     
-    // Get YouTube Video ID
-    const videoId = await getYouTubeVideoId(track.name, track.artists[0].name);
-    
-    playerTitle.textContent = track.name; // reset title
-    
-    if (!videoId) {
-        alert("Sorry, could not find audio for this track.");
-        return;
-    }
-    
-    // Play via YouTube iframe
-    ytPlayer.loadVideoById(videoId);
+    // Play via YouTube iframe from id directly
+    ytPlayer.loadVideoById(track.id);
 }
 
 function playNext() {
@@ -251,7 +221,7 @@ async function handleSearch() {
 
     // Show loading state
     resultsContainer.innerHTML = '<div class="placeholder-text">Searching Spotify for "' + query + '"...</div>';
-    
+
     try {
         currentTracks = await searchTracks(query);
         displayTracks(currentTracks);
@@ -276,9 +246,7 @@ function displayTracks(tracks) {
     }
 
     tracks.forEach((track, index) => {
-        // Find best image size, or use placeholder
-        const images = track.album.images;
-        const imageUrl = images.length > 0 ? images[0].url : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+        const imageUrl = track.image || 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
         
         const card = document.createElement('div');
         card.className = 'track-card';
@@ -290,14 +258,14 @@ function displayTracks(tracks) {
             </div>
         `;
 
-        const artists = track.artists.map(a => a.name).join(', ');
+        const artist = track.artist;
 
         card.innerHTML = `
             <div class="track-image-container">
-                <img src="${imageUrl}" class="track-image" alt="${track.name} Album Art" loading="lazy">
+                <img src="${imageUrl}" class="track-image" alt="${track.name} Art" loading="lazy">
             </div>
             <h3 class="track-title" title="${track.name}">${track.name}</h3>
-            <p class="track-artist" title="${artists}">${artists}</p>
+            <p class="track-artist" title="${artist}">${artist}</p>
             ${actionsHtml}
         `;
         
@@ -308,5 +276,4 @@ function displayTracks(tracks) {
     });
 }
 
-// Initialize token on page load
-window.addEventListener('load', getToken);
+// No initialization needed anymore!
